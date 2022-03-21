@@ -84,6 +84,7 @@ as.character(TBcareer$Team)
 as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS,TBcareer$TD,TBcareer$COMP,TBcareer$PCT,TBcareer$AVG,TBcareer$LNG,
              TBcareer$INT,TBcareer$`1st`,TBcareer$`1st%`,TBcareer$`20+`,TBcareer$SCK,TBcareer$SCKY,TBcareer$RATE))
 
+#Regression
 
 
 
