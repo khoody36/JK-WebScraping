@@ -94,7 +94,7 @@ as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS,TBcareer$TD,TBcareer$COMP,TBca
 str(TBcareer$Team)
 
 
-#loops
+#TDLoop
 
 i = as.integer(length(TBcareer$TD))
 bestTD = as.integer(0)
@@ -106,8 +106,49 @@ for(x in 1:i){
 print (bestTD)
 
 
+TBcareer$SCK
+#copy as numeric dataframe
+len = as.integer(nrow(TBcareer))
+
+bradyYear <- 1:len
+bradyG <- 1:len
+bradyATT <- 1:len
+bradyCOMP <- 1:len
+bradyPCT <- 1:len
+bradyYDS <- 1:len
+bradyAVG <- 1:len
+bradyLNG <- 1:len
+bradyTD <- 1:len
+bradyINT <- 1:len
+brady1st <- 1:len
+brady1stPct <- 1:len
+brady20 <- 1:len
+bradySCK <- 1:len
+bradySCKY <- 1:len
+bradyRATE <- 1:len
 
 
 
 
+for(x in 1:len){
+  bradyYear[x] <- as.numeric(TBcareer$YEAR[x])
+  bradyG[x] <- as.numeric(TBcareer$G[x])
+  bradyATT[x] <- as.numeric(TBcareer$ATT[x])
+  bradyCOMP[x] <- as.numeric(TBcareer$COMP[x])
+  bradyPCT[x] <- as.numeric(TBcareer$PCT[x])
+  bradyYDS[x] <- as.numeric(TBcareer$YDS[x])
+  bradyAVG[x] <- as.numeric(TBcareer$AVG[x])
+  bradyLNG[x] <- as.numeric(TBcareer$LNG[x])
+  bradyTD[x] <- as.numeric(TBcareer$TD[x])
+  bradyINT[x] <- as.numeric(TBcareer$INT[x])
+  brady1st[x] <- as.numeric(TBcareer$`1st`[x])
+  brady1stPct[x] <- as.numeric(TBcareer$`1st%`[x])
+  brady20[x] <- as.numeric(TBcareer$`20+`[x])
+  bradySCK[x] <- as.numeric(TBcareer$SCK[x])
+  bradySCKY[x] <- as.numeric(TBcareer$SCKY[x])
+  bradyRATE[x] <- as.numeric(TBcareer$RATE[x])
+}
+
+bradyCareer <- rbind (bradyYear, bradyG, bradyATT, bradyCOMP, bradyPCT, bradyYDS, bradyAVG, bradyLNG, bradyTD, bradyINT,
+                brady1st, brady1stPct, brady20, bradySCK, bradySCKY, bradyRATE)
 
