@@ -14,7 +14,7 @@ paths_allowed("https://www.nfl.com/players/tom-brady/stats/career")
 link <- "https://www.nfl.com/players/tom-brady/stats/career"
 
 #Pull stats 
-TBstats <- read_html(link) %>% html_nodes(".nfl-t-stats__col-16") %>% html_text()
+TBstats <- read_html(link) %>% html_nodes(".nfl-t-stats__col-16") %>% html_text2()
 
 #Make stats by year
 StatsCat <- as.data.frame(TBstats[c(1:17)])
@@ -78,23 +78,42 @@ TBcareer <- cbind(TBcareer,Superbowl)
 TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",TRUE,FALSE)
 TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",TRUE,FALSE)
 
-
-#This Line is the Money line
+#Clean-up white space
 TBcareer <- TBcareer %>% mutate_if(is.character, str_trim)
 
-
-
-
-
 #Structure Data
-as.character(TBcareer$Team)
-as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS,TBcareer$TD,TBcareer$COMP,TBcareer$PCT,TBcareer$AVG,TBcareer$LNG,
-             TBcareer$INT,TBcareer$`1st`,TBcareer$`1st%`,TBcareer$`20+`,TBcareer$SCK,TBcareer$SCKY,TBcareer$RATE))
+unlist(TBcareer)
+G <- as.numeric(TBcareer$G) %>% as.data.frame()
+ATT <- as.numeric(TBcareer$ATT) %>% as.data.frame()
+COMP <- as.numeric(TBcareer$COMP) %>% as.data.frame()
+PCT <- as.numeric(TBcareer$PCT) %>% as.data.frame()
+YDS <- as.numeric(TBcareer$YDS) %>% as.data.frame()
+AVG <- as.numeric(TBcareer$AVG) %>% as.data.frame()
+LNG <- as.numeric(TBcareer$LNG) %>% as.data.frame()
+TD <- as.numeric(TBcareer$TD) %>% as.data.frame()
+INT <- as.numeric(TBcareer$INT) %>% as.data.frame()
+FIRST <- as.numeric(TBcareer$`1st`) %>% as.data.frame()
+FIRSTPCT <- as.numeric(TBcareer$`1st%`) %>% as.data.frame()
+PLUS20 <- as.numeric(TBcareer$`20+`) %>% as.data.frame()
+SCK <- as.numeric(TBcareer$SCK) %>% as.data.frame()
+SCKY <- as.numeric(TBcareer$SCKY)%>% as.data.frame()
+RATE <- as.numeric(TBcareer$RATE) %>% as.data.frame()
 
-str(TBcareer$Team)
+TBcareer1 <- cbind(G,ATT,COMP,PCT,YDS,AVG,LNG,TD,INT,FIRST,FIRSTPCT,PLUS20,SCK,SCKY,RATE)
+colnames(TBcareer1) <- c("G","ATT","COMP","PCT","YDS","AVG","LNG","TD","INT","FIRST","FIRSTPCT","PLUS20","SCK","SCKY","RATE")
+str(TBcareer1)
 
 
+<<<<<<< HEAD
 #TDLoop
+=======
+
+#Regression
+model1 <- lm(TBcareer1$RATE ~ TBcareer1$G )
+
+summary(model1)
+
+>>>>>>> 6f7635de625094b7f07ca49fbcab05a724efdc7e
 
 i = as.integer(length(TBcareer$TD))
 bestTD = as.integer(0)
@@ -105,6 +124,7 @@ for(x in 1:i){
 }
 print (bestTD)
 
+<<<<<<< HEAD
 
 TBcareer$SCK
 #copy as numeric dataframe
@@ -127,6 +147,9 @@ bradySCK <- 1:len
 bradySCKY <- 1:len
 bradyRATE <- 1:len
 
+=======
+max(TBcareer$TD)
+>>>>>>> 6f7635de625094b7f07ca49fbcab05a724efdc7e
 
 
 
