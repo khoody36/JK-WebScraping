@@ -94,7 +94,16 @@ as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS,TBcareer$TD,TBcareer$COMP,TBca
 str(TBcareer$Team)
 
 
+#loops
 
+i = as.integer(length(TBcareer$TD))
+bestTD = as.integer(0)
+for(x in 1:i){
+  if(TBcareer$TD[x] > bestTD) {
+    bestTD = TBcareer$TD[x]
+  }
+}
+print (bestTD)
 
 
 
