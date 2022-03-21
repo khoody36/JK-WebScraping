@@ -16,7 +16,6 @@ link <- "https://www.nfl.com/players/tom-brady/stats/career"
 #Pull stats 
 TBstats <- read_html(link) %>% html_nodes(".nfl-t-stats__col-16") %>% html_text()
 
-
 #Make stats by year
 StatsCat <- as.data.frame(TBstats[c(1:17)])
 TBstats2000 <- as.data.frame(t(TBstats[c(18:34)]))
@@ -79,12 +78,20 @@ TBcareer <- cbind(TBcareer,Superbowl)
 TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",TRUE,FALSE)
 TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",TRUE,FALSE)
 
+
+#This Line is the Money line
+TBcareer <- TBcareer %>% mutate_if(is.character, str_trim)
+
+
+
+
+
 #Structure Data
 as.character(TBcareer$Team)
 as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS,TBcareer$TD,TBcareer$COMP,TBcareer$PCT,TBcareer$AVG,TBcareer$LNG,
              TBcareer$INT,TBcareer$`1st`,TBcareer$`1st%`,TBcareer$`20+`,TBcareer$SCK,TBcareer$SCKY,TBcareer$RATE))
 
-#Regression
+str(TBcareer$Team)
 
 
 
