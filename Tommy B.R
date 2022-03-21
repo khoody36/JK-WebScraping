@@ -103,3 +103,13 @@ RATE <- as.numeric(TBcareer$RATE) %>% as.data.frame()
 TBcareer1 <- cbind(G,ATT,COMP,PCT,YDS,AVG,LNG,TD,INT,FIRST,FIRSTPCT,PLUS20,SCK,SCKY,RATE)
 colnames(TBcareer1) <- c("G","ATT","COMP","PCT","YDS","AVG","LNG","TD","INT","FIRST","FIRSTPCT","PLUS20","SCK","SCKY","RATE")
 str(TBcareer1)
+
+#Regression
+model1 <- lm(RATE ~ ATT + COMP + PCT + YDS + TD - INT - SCK, TBcareer1)
+summary(model1)
+
+
+
+
+
+
