@@ -111,7 +111,7 @@ TBcareer2 <- TBcareer1[-c(1,9),]
 model1 <- lm(RATE ~ ATT + COMP + PCT + YDS + TD - INT - SCK, TBcareer2)
 summary(model1)
 
-
+plot(TBcareer2$RATE, TBcareer2$PCT, main="Rate vs PCT", xlab = "Rate", ylab = "Completion %", pch = 19)
 
 
 
