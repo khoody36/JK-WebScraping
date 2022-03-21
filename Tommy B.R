@@ -105,7 +105,10 @@ colnames(TBcareer1) <- c("G","ATT","COMP","PCT","YDS","AVG","LNG","TD","INT","FI
 str(TBcareer1)
 
 #Regression
-model1 <- lm(RATE ~ ATT + COMP + PCT + YDS + TD - INT - SCK, TBcareer1)
+TBcareer2 <- TBcareer1[-c(1,9),]
+
+
+model1 <- lm(RATE ~ ATT + COMP + PCT + YDS + TD - INT - SCK, TBcareer2)
 summary(model1)
 
 
