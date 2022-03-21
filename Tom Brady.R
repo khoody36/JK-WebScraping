@@ -42,22 +42,35 @@ TBstats2019 <- as.data.frame(t(TBstats[c(341:357)]))
 TBstats2020 <- as.data.frame(t(TBstats[c(358:374)]))
 TBstats2021 <- as.data.frame(t(TBstats[c(375:391)]))
 
-names(c(TBstats2000, TBstats2001, TBstats2002, TBstats2003,
-           TBstats2004, TBstats2005, TBstats2006, TBstats2007,
-           TBstats2008, TBstats2009, TBstats2010, TBstats2011,
-           TBstats2012, TBstats2013, TBstats2014, TBstats2015,
-           TBstats2016, TBstats2017, TBstats2018, TBstats2019,
-           TBstats2020, TBstats2021)) <- c('YEAR','Team','G','ATT','COMP','PCT',
-                                           'YDS','AVG','LNG','TD','INT','1st','1st%',
-                                           '20+','SCK','SCKY','RATE')
+#Categories
+categories <- c('YEAR','Team','G','ATT','COMP','PCT',
+                 'YDS','AVG','LNG','TD','INT','1st','1st%',
+                 '20+','SCK','SCKY','RATE')
+
+#List of data frames
+ListTBdf <- list(TBstats2000, TBstats2001, TBstats2002, TBstats2003,
+               TBstats2004, TBstats2005, TBstats2006, TBstats2007,
+               TBstats2008, TBstats2009, TBstats2010, TBstats2011,
+               TBstats2012, TBstats2013, TBstats2014, TBstats2015,
+               TBstats2016, TBstats2017, TBstats2018, TBstats2019,
+               TBstats2020, TBstats2021)
+
+#Rename columns
+ListTBdf1 <- lapply(ListTBdf, function(x){names(x) <- categories; return(x)})
+
+#Combine data frames
+TBcareer <- rbind(TBstats2000, TBstats2001, TBstats2002, TBstats2003,
+                  TBstats2004, TBstats2005, TBstats2006, TBstats2007,
+                  TBstats2008, TBstats2009, TBstats2010, TBstats2011,
+                  TBstats2012, TBstats2013, TBstats2014, TBstats2015,
+                  TBstats2016, TBstats2017, TBstats2018, TBstats2019,
+                  TBstats2020, TBstats2021)
+
+#Rename columns TBcareer
+colnames(TBcareer) <- categories
 
 
-TBcareer <- merge(TBstats2000, TBstats2001, TBstats2002, TBstats2003,
-        TBstats2004, TBstats2005, TBstats2006, TBstats2007,
-        TBstats2008, TBstats2009, TBstats2010, TBstats2011,
-        TBstats2012, TBstats2013, TBstats2014, TBstats2015,
-        TBstats2016, TBstats2017, TBstats2018, TBstats2019,
-        TBstats2020, TBstats2021, by = "col")
+
 
 
 
