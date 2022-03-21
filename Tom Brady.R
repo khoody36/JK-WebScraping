@@ -70,6 +70,24 @@ TBcareer <- rbind(TBstats2000, TBstats2001, TBstats2002, TBstats2003,
 colnames(TBcareer) <- categories
 
 
+#Superbowl Outcome
+Superbowl <- data.frame(SB_APPER = c("no","yes","no","yes","yes","no","no","yes","no","no","no","yes","no","no","yes","no","yes","yes","yes","no","yes","no"),
+                        SB_WIN = c("no","yes","no","yes","yes","no","no","no","no","no","no","no","no","no","yes","no","yes","no","yes","no","yes","no"))
+
+#Add Superbowl data to TBcareer
+TBcareer <- cbind(TBcareer,Superbowl)
+TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",TRUE,FALSE)
+TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",TRUE,FALSE)
+
+#Structure Data
+as.character(TBcareer$Team)
+as.numeric(c(TBcareer$G,TBcareer$ATT,TBcareer$YDS))
+
+
+
+
+
+
 
 
 
