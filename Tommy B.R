@@ -6,6 +6,7 @@ library(ggplot2)
 library(plotly)
 library(robotstxt)
 library(tidyr)
+library(caTools)
 
 #check permissions
 paths_allowed("https://www.nfl.com/players/tom-brady/stats/career")
@@ -75,8 +76,8 @@ Superbowl <- data.frame(SB_APPER = c("no","yes","no","yes","yes","no","no","yes"
 
 #Add Superbowl data to TBcareer
 TBcareer <- cbind(TBcareer,Superbowl)
-TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",TRUE,FALSE)
-TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",TRUE,FALSE)
+TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",1,0)
+TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",1,0)
 
 
 #This Line is the Money line
@@ -99,20 +100,30 @@ PLUS20 <- as.numeric(TBcareer$`20+`) %>% as.data.frame()
 SCK <- as.numeric(TBcareer$SCK) %>% as.data.frame()
 SCKY <- as.numeric(TBcareer$SCKY)%>% as.data.frame()
 RATE <- as.numeric(TBcareer$RATE) %>% as.data.frame()
+SB_APPER <- as.numeric(TBcareer$SB_APPER) %>% as.data.frame()
 
-TBcareer1 <- cbind(G,ATT,COMP,PCT,YDS,AVG,LNG,TD,INT,FIRST,FIRSTPCT,PLUS20,SCK,SCKY,RATE)
-colnames(TBcareer1) <- c("G","ATT","COMP","PCT","YDS","AVG","LNG","TD","INT","FIRST","FIRSTPCT","PLUS20","SCK","SCKY","RATE")
+TBcareer1 <- cbind(G,ATT,COMP,PCT,YDS,AVG,LNG,TD,INT,FIRST,FIRSTPCT,PLUS20,SCK,SCKY,RATE,SB_APPER)
+colnames(TBcareer1) <- c("G","ATT","COMP","PCT","YDS","AVG","LNG","TD","INT","FIRST","FIRSTPCT","PLUS20","SCK","SCKY","RATE","SB_APPER")
 str(TBcareer1)
 
 #Regression
 TBcareer2 <- TBcareer1[-c(1,9),]
 
+split <- sample.split(TBcareer2, SplitRatio = 0.5)
+training <- subset(TBcareer2, split=="TRUE")
+testing <- subset(TBcareer2, split=="FALSE")
 
-model1 <- lm(RATE ~ ATT + COMP + PCT + YDS + TD - INT - SCK, TBcareer2)
+model1 <- glm(SB_APPER ~ ATT + TD, training, family = "binomial")
 summary(model1)
 
-plot(TBcareer2$RATE, TBcareer2$PCT, main="Rate vs PCT", xlab = "Rate", ylab = "Completion %", pch = 19)
+model2 <- glm(SB_APPER ~ ATT + TD, testing, family = "binomial")
+summary(model2)
 
+data <- data.frame(ATT=47, TD=28)
+data2 <- data.frame(ATT=373,TD=24)
 
+answer <- predict.glm(model1,data,type = "response")
+answer2 <- predict.glm(model1,data2,type = "response")
 
+print(c(answer,answer2))
 
