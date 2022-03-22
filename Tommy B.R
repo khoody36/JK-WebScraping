@@ -113,17 +113,14 @@ split <- sample.split(TBcareer2, SplitRatio = 0.5)
 training <- subset(TBcareer2, split=="TRUE")
 testing <- subset(TBcareer2, split=="FALSE")
 
-model1 <- glm(SB_APPER ~ ATT + TD, training, family = "binomial")
+model1 <- glm(SB_APPER ~ RATE + TD + PCT - INT, training, family = "binomial")
 summary(model1)
 
-model2 <- glm(SB_APPER ~ ATT + TD, testing, family = "binomial")
-summary(model2)
+data <- data.frame(RATE=92.6, TD=28, PCT=60.76, INT=14)
+data2 <- data.frame(RATE=102.1,TD=43, PCT=67.45, INT=12)
 
-data <- data.frame(ATT=47, TD=28)
-data2 <- data.frame(ATT=373,TD=24)
-
-answer <- predict.glm(model1,data,type = "response")
-answer2 <- predict.glm(model1,data2,type = "response")
+answer <- predict.glm(model1,data,type = "response")>.5
+answer2 <- predict.glm(model1,data2,type = "response")>.5
 
 print(c(answer,answer2))
 
