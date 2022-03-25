@@ -1,12 +1,6 @@
-library(rvest)
-library(xml2)
-library(dplyr)
-library(stringr)
-library(ggplot2)
-library(plotly)
-library(robotstxt)
-library(tidyr)
-library(caTools)
+
+library(pacman)
+p_load(rvest,xml2,dplyr,stringr,ggplot2,plotly,robotstxt,tidyr,caTools)
 
 #check permissions
 paths_allowed("https://www.nfl.com/players/tom-brady/stats/career")
