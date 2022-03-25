@@ -25,8 +25,10 @@ StatCol <- read_html("https://www.nfl.com/players/tom-brady/stats/career") %>%
   html_text(trim = T) %>% 
   str_squish()
 
-TB <- as.data.frame(t(TBstats))
 Columns <- as.data.frame(t(StatCol))
+TB <- as.data.frame(t(TBstats))
+
+
 str(TB)
 
 TB2 <- pivot_longer(TB, c(V1,V18))
