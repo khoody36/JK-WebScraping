@@ -19,8 +19,6 @@ TB <- read_html(link) %>%
   html_nodes(".nfl-o-roster") %>% 
   html_table()
 
-str(TB[1])
-
 #Superbowl Outcome
 Superbowl <- data.frame(SB_APPER = c("no","yes","no","yes","yes","no","no","yes","no","no","no","yes","no","no","yes","no","yes","yes","yes","no","yes","no",""),
                         SB_WIN = c("no","yes","no","yes","yes","no","no","no","no","no","no","no","no","no","yes","no","yes","no","yes","no","yes","no",""))
@@ -29,9 +27,6 @@ Superbowl <- data.frame(SB_APPER = c("no","yes","no","yes","yes","no","no","yes"
 TBcareer <- cbind(TB[1],Superbowl)
 TBcareer$SB_APPER <- ifelse(TBcareer$SB_APPER=="yes",1,0)
 TBcareer$SB_WIN <- ifelse(TBcareer$SB_WIN=="yes",1,0)
-
-#TBcareer structure
-str(TBcareer)
 
 #Regression
 TBcareer1 <- TBcareer[!(TBcareer$YEAR %in% c(2000,2008)), ]
