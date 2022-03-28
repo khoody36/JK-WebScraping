@@ -35,11 +35,9 @@ server <- function(input, output, session) {
       html_table() %>%
       pluck(1)
   })
-  
   output$table <- renderTable({
     QBtable()
   })
-  
   output$QB_file <- downloadHandler(
     filename = function(){
       paste(input$qb,".csv",sep = "")
@@ -48,7 +46,6 @@ server <- function(input, output, session) {
       write.csv(QBtable(), file)
     }
   )
-  
 }
 
 shinyApp(ui, server)
