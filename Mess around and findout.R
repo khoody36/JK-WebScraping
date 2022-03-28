@@ -1,6 +1,5 @@
-
 library(pacman)
-p_load(rvest,xml2,dplyr,stringr,ggplot2,plotly,robotstxt,tidyr,caTools)
+p_load(rvest,xml2,dplyr,stringr,ggplot2,plotly,robotstxt,tidyr,caTools,tidyverse)
 
 #check permissions
 paths_allowed("https://www.nfl.com/players/tom-brady/stats/career")
