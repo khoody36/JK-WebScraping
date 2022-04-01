@@ -4,21 +4,17 @@ p_load(rvest,tidyverse,RSelenium,dplyr,formattable,shiny)
 
 #Prerequisite File
 ####create link for Tom Brady career stats
-link <- "https://www.profootballnetwork.com/nfl-starting-quarterbacks-2021/"
+link <- "https://en.wikipedia.org/wiki/List_of_starting_quarterbacks_in_the_National_Football_League"
 ####Pull stats 
 Stats <- read_html(link) %>% 
-  html_nodes(".tdb-block-inner li") %>% 
-  html_text(trim = T) %>%
-  str_squish()
+  html_nodes(".mw-parser-output") %>% 
+  html_table()
 ####Clean data frame
-QBdf <- as.data.frame(Stats) %>% separate(Stats, sep = ": ", into = c("Team","QB"))
-QBdf[QBdf == "Kyle Trask"] <- "Tom Brady"
-QBdf[QBdf == "Feleipe Franks"] <- "Marcus Mariota"
-QBdf[QBdf == "Drew Lock/Geno Smith"] <- "Drew Lock"
-QBdf[QBdf == "Jimmy Garoppolo/Trey Lance"] <- "Jimmy Garoppolo"
-QBdf[QBdf == "Mason Rudolph/Dwayne Haskins"] <- "Mason Rudolph"
-QBdf <- QBdf[order(QBdf$QB),]
-QBdf <- QBdf %>% mutate(QBlink = str_replace(QBdf$QB, " ","-"))
+QBdf <- Stats[[1]]
+QBdf <- QBdf[-c(33:43),-c(3:14)]
+QBdf$Team <- gsub("list", "", as.character(QBdf$Team))
+QBdf$Team <- gsub("[()]", "", as.character(QBdf$Team))
+QBdf <- QBdf %>% mutate(QBlink = str_replace(QBdf$Quarterback, " ","-"))
 
 #Shiny App
 ui <- fluidPage(
