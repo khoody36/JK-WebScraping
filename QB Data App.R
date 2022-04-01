@@ -15,6 +15,7 @@ QBdf <- QBdf[-c(33:43),-c(3:14)]
 QBdf$Team <- gsub("list", "", as.character(QBdf$Team))
 QBdf$Team <- gsub("[()]", "", as.character(QBdf$Team))
 QBdf <- QBdf %>% mutate(QBlink = str_replace(QBdf$Quarterback, " ","-"))
+QBdf <- QBdf[order(QBdf$Quarterback),]
 
 #Shiny App
 ui <- fluidPage(
