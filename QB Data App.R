@@ -1,6 +1,6 @@
 #Libraries
 library(pacman)
-p_load(rvest,tidyverse,RSelenium,dplyr,formattable,shiny)
+p_load(rvest,tidyverse,RSelenium,dplyr,formattable,shiny,shinythemes)
 
 #Prerequisite File
 ####create link for Tom Brady career stats
@@ -19,6 +19,10 @@ QBdf <- QBdf[order(QBdf$Quarterback),]
 
 #Shiny App
 ui <- fluidPage(
+  theme = shinytheme("darkly"),
+  titlePanel(
+    "Starting Quaterback Data"),
+  
   selectInput(inputId = "qb", label = "Quarterback", choices = QBdf$QBlink),
   downloadButton("QB_file","Download"),
   tableOutput("table")
